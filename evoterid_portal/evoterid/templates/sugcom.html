@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+	<link href="{% static 'evoterid/css/style.css' %}" rel="stylesheet">
+	<title>Suggestion and Complains</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+		<img style="width:100%;height:100%" src="{% static 'evoterid/src/logo.png' %}">
+	<div class="paddlft">
+      <form action="/evoterid/suggestion/" name="f1" method="post" onclick="return msg()">{% csrf_token %}
+			<div class="rcorners1">
+				<p>Track Your Application Satus</p>
+			</div>
+			<div class="form-box">
+				<div class="text">
+					<br><br>
+					<center>
+					I have complains/suggestion as...
+					&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="cs" value="applicant">Applicant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="cs" value="officer">Officer
+					<br><br>
+					<br><br>
+					<table border="0px">
+					<tr>
+					<td>
+					<b>For Applicant only:</b>
+					</td>
+					<td>
+					<b>For Officer only:</b>
+					</td>
+					</tr>
+					<tr></tr><tr></tr>
+					<tr></tr><tr></tr>
+					<tr>
+					<td>
+					<table border="0px">
+					<tr>
+					<td><br>
+					Enter Application No.:
+					</td>
+					<td><br>
+					<input type="text" name="ano" id="appno" minlength="8" maxlength="8" required disabled/>
+					</td>
+					<td>&nbsp;&nbsp;&nbsp;</td>
+					<td>&nbsp;&nbsp;&nbsp;</td>
+					<td>&nbsp;&nbsp;&nbsp;</td>
+					</tr>
+					</table>
+					</td>
+					<td>
+					<table border="0px">
+					<tr>
+					<td><br>
+					Username:
+					</td>
+					<td><br>
+					<input type="text" name="unm" id="nm" required disabled/>
+					</td>
+					</tr>
+					<tr>
+					<td><br>
+					Password:
+					</td>
+					<td><br>
+					<input type="password" name="pass" id="passw" required disabled/>
+					</td>
+					</tr>
+					</td>
+					</tr>
+					</table>
+					</table><br><br>
+        	<button class="button button2" type="submit" onclick="msg()"><span>Submit</span></button>
+                                        <!--<input type="submit" value="Submit">-->
+					</center>
+					<br><br>
+				</div>
+			</div>
+				<br><br>
+				<br>
+				<br><br>
+	</form>
+            <script>
+            function msg()
+            {
+                var choice=document.f1.cs.value;
+                if (choice == "applicant")
+                {
+                    var ao=document.f1.ano.value;
+                    document.getElementById("nm").disabled = true;
+                    document.getElementById("passw").disabled = true;
+                    document.getElementById("appno").disabled = false;
+                  //  return true;
+                }
+                //else{
+                  //  return false;
+                //}
+                if(choice == "officer")
+                {
+                    var nm=document.f1.unm.value;
+                    var pa=document.f1.pass.value;
+                    document.getElementById("appno").disabled = true;
+                    document.getElementById("nm").disabled = false;
+                    document.getElementById("passw").disabled = false;
+                 //   return true;
+                }
+               // else{
+                 //   return false;
+               // }
+            }
+        </script>
+	</div>
+	<footer>
+		<div class="container">
+		<div class="first">
+			<div class="inner">
+				<p>Copyright © 2019 E-Voter's Service Portal.<br>Site is designed and maintained by Devendra, Milan and Krinish</p>
+				<nav>
+					<ul>
+						<li><a href="/evoterid/getuserinfo/" target="_blank">Home</a></li>
+						<li><a href="/evoterid/getuserinfo/about.html" target="_blank">About As</a></li>
+						<li><a href="/evoterid/getuserinfo/contact.html" target="_blank">Contact As</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="first">
+			<div class="inner">
+				<h1>Follow on</h1>
+				<a href="https://www.facebook.com/devendra.raiyani.7" target="_blank">
+					<img src="{% static 'evoterid/src/fb.png' %}">
+				</a>
+				<a href="http://www.instagram.com/incre_devendra/?hl=en" target="_blank">
+						<img src="{% static 'evoterid/src/ist.png' %}" style="margin-left:8px;">
+				</a>
+				<a href="https://www.youtube.com/channel/UC_LumxyJ8qANtNx_p79fFSQ?view_as=subscriber" target="_blank">
+					<img src="{% static 'evoterid/src/yt.png' %}" style="margin-left:8px;">
+				</a>
+			</div>
+		</div>
+		</div>
+		<div><br>
+		</div>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,858 @@
+<html>
+<head>
+	{% load staticfiles %}
+	<link href="{% static 'evoterid/css/style.css' %}" rel="stylesheet">
+	<meta charset="UTF-8">
+	<title>Form 8</title>
+</head>
+<body onload="myFunction()" onpageshow="generateCaptcha()">
+	<header>
+		<div class="container">
+			<div id="branding">
+				<img align="left" src="{% static 'evoterid/src/sb.png' %}">
+				<img src="{% static 'evoterid/src/logonew1.png' %}">
+				<img align="right" src="{% static 'evoterid/src/di.png' %}">
+			</div>
+		</div>
+	</header>
+<div class="paddlft">
+	<br>
+<form action="/evoterid/addmodificationinfo/" method="post" onsubmit="return CheckValidCaptcha()" enctype="multipart/form-data" name="myform" id="myForm">{% csrf_token %}
+	  <div class="container">
+		&nbsp;&nbsp;&nbsp;&nbsp
+
+
+		<b>Note :Fields marked with asterisk (*) are mandatory</b>
+	</div>
+	<div class="rcorners1">
+		<p>Form 8<br>[Correction of entries in electoral roll]</p>
+	</div>
+	<div class="form-box"><br>
+		<center>
+		<div class="sub-box">
+			<p id="padd">Application for Inclusion of Name in Electoral Roll for First time Voter OR on Shifting from One Constituency to Another Constituency.</p>
+		</div>
+		</center>
+		<div class="text">
+		<br><br>To,<br><br>The Electoral Registration Officer<br>
+		<table width="1000">
+		<tr>
+		<td><br>
+		State/Union Territories :<b>*</b>
+		</td>
+		<td><br>
+		<select style="width: 145px;" id="state" name="state" data-val="true" size="1" data-val-regex="Please select relation" data-val-required="Please select relation">
+			<option selected="selected" value="">select</option>
+		</select>
+		</td>
+		<td><br>
+		District :<b>*</b>
+		</td>
+		<td><br>
+		<select style="width: 145px;" id="district" name="district" size="1" data-val="true" data-val-regex="Please select gender" data-val-required="Please select gender">
+			<option selected="selected" value="">select</option>
+		</select>
+		</td>
+		</tr>
+		<tr>
+		<tr>
+		<td><br>
+		Assembly/Parliamentary Constituency :<b>*</b>
+		</td>
+		<td><br>
+		<select style="width: 145px;" id="assembly" name="assembly" size="1" data-val="true" data-val-regex="Please select relation" data-val-required="Please select relation">
+			<option selected="selected" value="">select</option>
+		</select>
+		</td>
+		</tr>
+		</table>
+		<br>I request that entry relating to myself appearing in the electoral roll the above constituency is not correct and it should be corrected.<br><br> Correct particulars in support of my request are given below :<br><br>
+		</div>
+		<center><div class="border"></div></center><br>
+		<center>
+		<div class="sub-box">
+			<p id="padd">Basic Details of an Applicant</p>
+		</div>
+		</center>
+		<div class="text">
+		<br>
+		<table width="1000" border="0px">
+		<tr>
+		<td>
+		Name :<b>*</b>
+		</td>
+		<td>
+		<input name="oldname" placeholder="(In English)" type="text" value="{{user.name}}" required/>
+		</td>
+		<td>
+		</td>
+		<td>
+		Surname :<b>*</b>
+		</td>
+		<td>
+		<input name="oldsrnmae" placeholder="(In English)" type="text" value="{{user.srname}}" required/>
+		</td>
+		</tr>
+		<tr>
+		<td><br>
+		Voter ID card no. :<b>*</b>
+		</td>
+		<td><br>
+		<input maxlength="10" name="vidno" placeholder="(In English)" type="text" value="{{user.id}}" required/>
+		</td>
+		<td>
+		</td>
+		</tr>
+		</table>
+		</div><br>
+		<center><div class="border"></div></center><br>
+		<center>
+		<div class="sub-box">
+			<p id="padd">Tick the Entry which is to be Corrected</p>
+		</div>
+		</center>
+		<div class="text">
+		<br>
+		<table width="1000" border="0px">
+		<tr>
+		<td>
+
+		<input type="checkbox" name="cornm" id="name" onclick="enableDisable1(this.checked, 'anm','asurnm');"/>
+		Name
+		</td>
+
+		<td>
+		<input type="checkbox" name="corphoto" id="my photograph" onclick="enableDisable2(this.checked,'photo');" />
+		My Photograph
+		</td>
+		<td>
+		<input type="checkbox" name="coradd"  id="address" onclick="enableDisable3(this.checked,'hno','street','town','pin','addproof','typeaddproof');"/>
+		Address
+		</td>
+		<tr>
+		<td><br>
+		<input type="checkbox" name="cordob"  id="date of birth" onclick="enableDisable4(this.checked,'birthdate');"/>
+		Date of Birth
+		</td>
+		<td><br>
+		<input type="checkbox" name="corage"  id="age" onclick="enableDisable5(this.checked,'ageproof','typeageproof');"/>
+		Age Proof
+		</td>
+		<td><br>
+		<input type="checkbox" name="correl"  id="type of relation" onclick="enableDisable6(this.checked,'relation');"/>
+		Type of Relation
+		</td>
+		</tr>
+		<td><br>
+		<input type="checkbox" name="cornmre"  id="name of relative" onclick="enableDisable7(this.checked,'arnm','arsurnm');"/>
+		Name of Relative</td>
+		<td><br>
+		<input type="checkbox" name="corgen"  id="gender" onclick="enableDisable8(this.checked,'Gender');"/>
+		Gender
+		</td>
+		<td>
+			<input type="checkbox" name="all" id="all" onclick="enableDisable9(this.checked, 'anm','asurnm','photo','hno','street','town','pin','addproof','typeaddproof','birthdate','ageproof','typeageproof','relation','arnm','arsurnm','Gender');">
+			All Change
+		</td>
+		</tr>
+		</table>
+		</div><br>
+		<center><div class="border"></div></center><br>
+		<center>
+		<div class="sub-box">
+			<p id="padd">The correct particulars in entry to be corrected are as below</p>
+		</div>
+		</center>
+		<div class="text">
+		<br>
+		<table width="1000" border="0px">
+		<tr>
+		<td>
+		Name :<b>*</b>
+		</td>
+		<td>
+		<input name="anm" id="anm" placeholder="(In English)" type="text" value="{{user.name}}" disabled/>
+		</td>
+		<td>
+		</td>
+		<td>
+		Surname :<b>*</b>
+		</td>
+		<td>
+		<input name="asurnm" id="asurnm" placeholder="(In English)" type="text" value="{{user.srname}}" disabled/>
+		</td>
+		</tr>
+		<tr>
+		<td><br>
+
+		Name of Relative of Applicant :<b>*</b>
+		</td>
+		<td><br>
+		<input name="arnm" id="arnm" placeholder="(In English)" type="text" value="{{user.r_name}}" disabled/>
+		</td>
+		<td>
+		</td>
+		<td><br>
+		Surname of Relative of Applicant :<b>*</b>
+		</td>
+		<td><br>
+		<input name="arsurnm" id="arsurnm" placeholder="(In English)" type="text" value="{{user.r_srname}}" disabled/>
+		</td>
+		</tr>
+		<tr>
+		<td><br>
+		Type of Relation :<b>*</b>
+		</td>
+		<td><br>
+		<select style="width: 145px;" id="relation" name="relation" disabled>
+			<option>Select</option>
+			<option value="Father">Father</option>
+			<option value="Mother">Mother</option>
+			<option value="Husband">Husband</option>
+			<option value="Wife">Wife</option>
+			<option value="Other">Other</option>
+		</select>
+		</td>
+		</tr>
+		<tr>
+		<td><br>
+		Date of Birth (format DD/MM/YYYY) :<b>*</b>
+		</td>
+		<td><br>
+		<input type="date" name="dob" value="{{user.birthday}}" id="birthdate" placeholder="DD/MM/YYYY" style="width: 145px;" disabled/>
+		</td>
+		</tr>
+		<tr>
+		<td><br>
+		 Gender of Applicant :<b>*</b>
+		</td>
+		<td><br>
+		<select style="width: 145px;" id="Gender" name="gender" disabled>
+			<option>Select</option>
+			<option value="Male">Male</option>
+			<option value="Female">Female</option>
+			<option value="Third Gender">Third Gender</option>
+		</select>
+		</td>
+		</tr>
+		<tr>
+		<td><br>
+		House No :
+		</td>
+		<td><br>
+		<input name="hno" type="text" id="hno" value="{{user.houseno}}" disabled />
+		</td>
+		<td>
+		</td>
+		<td><br>
+		Street/Area/Locality :<b>*</b>
+		</td>
+		<td><br>
+		<input name="street" type="text" id="street" value="{{user.address}}" disabled/>
+		</td>
+		</tr>
+		<tr>
+		<td><br>
+		Town/Village :<b>*</b>
+		</td>
+		<td><br>
+		<input name="town" type="text" id="town" value="{{user.town}}" disabled/>
+		</td>
+		<td>
+		</td>
+		<td><br>
+		PIN Code :<b>*</b>
+		</td>
+		<td><br>
+		<input name="pin" maxlength="6" minlength="6" id="pin" value="{{user.pin}}" pattern="[0-9]{6}" type="text" disabled/>
+		</td>
+		</tr>
+		</table><br>
+		</div>
+		<center><div class="border"></div></center><br>
+		<center>
+		<div class="sub-box">
+			<p id="padd">Upload Documents (Supported formats .jpg and.png)(max. 500KB)</p>
+		</div>
+		</center>
+		<div class="text">
+		<br>
+		<table width="1000" border="0px">
+		<tr>
+		<td>
+		Your Photograph :<b>*</b>
+		</td>
+		<td>
+		<input name="photo" type="file" id="photo" data-val="true" value="{{user.photo}}" data-val-required="Please upload your photograph " />
+		</td>
+		</tr>
+		<tr>
+		<td><br>
+		Age Proof :<b>*</b>
+		</td>
+		<td><br>
+		<input name="ageproof" id="ageproof" value="{{user.ageproof}}" type="file" accept="image/*"  />
+		</td>
+				<td><br>
+		<center>Type of Document :<b>*</b></center>
+		</td>
+		<td><br>
+		<select style="width: 145px;" id="typeageproof"  name="typeageproof">
+			<option>Select</option>
+			<option value="Birth Certificate">Birth Certificate</option>
+			<option value="Marksheet of class 10">Marksheet of class 10</option>
+			<option value="Indian Passport">Indian Passport</option>
+			<option value="PAN Card">PAN Card</option>
+			<option value="Driving License">Driving License</option>
+		</select>
+		</td>
+		</tr>
+		<tr>
+		<td><br>
+		Address Proof :<b>*</b>
+		</td>
+		<td><br>
+		<input name="addproof" id="addproof" value="{{addproof}}" type="file" accept="image/*" />
+		</td>
+		<td><br>
+		<center>Type of Document :<b>*</b></center>
+		</td>
+		<td><br>
+		<select style="width: 145px;" id="typeaddproof"  name="typeaddproof">
+			<option>Select</option>
+			<option value="Indian Passport">Indian Passport</option>
+			<option value="Driving License">Driving License</option>
+			<option value="Bank Pass Book">Bank Pass Book</option>
+			<option value="Ration Card">Ration Card</option>
+			<option value="Electricity Bill">Electricity Bill</option>
+			</select>
+		</td>
+		</tr>
+		</table>
+		</div><br>
+		<center><div class="border"></div></center><br>
+		<center>
+		<div class="sub-box">
+			<p id="padd">Optional Particulars</p>
+		</div>
+		</center>
+		<div class="text">
+		<br>
+		<table width="1000" border="0px">
+		<tr>
+		<td>
+		Email ID :
+		</td>
+		<td>
+		<input name="email" type="text" data-val="true" value="{{user.email_id}}" data-val-regex="Please enter a valid email address " data-val-regex-pattern="^(([\w-+]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)|[\w]{0})$"/>
+		</td>
+		</tr>
+		<tr>
+		<td><br>
+		Mobile No. :
+		</td>
+		<td><br>
+		<span>+91</span>
+		<input name="mno" type="text" style="width: 112px;"value="{{user.mo_number}}" maxlength="10" data-val="true" data-val-regex="Please enter a valid mobile number " data-val-regex-pattern="^([6-9][0-9]{9}|\w{0})$"/>
+		</td>
+		</tr>
+		</table>
+		</div><br>
+		<center><div class="border"></div></center><br>
+		<center>
+		<div class="sub-box">
+			<p id="padd">Declaration</p>
+		</div>
+		</center>
+		<div class="text">
+		<br>
+		I hereby declare that to the best of knowledge and belief : -<br><br>
+		I am aware that making a statement or declaration which is false and which I know or believe to be false or<br><br>
+		do not believe to be true, is punishable.
+		<br><br>
+		<table width="1000" border="0px">
+		<tr>
+		<td>
+		Place :<b>*</b>
+		</td>
+		<td>
+		<input name="place" data-val="true" placeholder="(In English)" type="text" required/>
+		</td>
+		<td>
+		</td>
+
+		<td>
+		Captcha :
+		</td>
+		<td>
+			<input type="text"  size="2" id="mainCaptcha"readonly="readonly"/>
+			<input type="button" id="refresh" value="Refresh" onclick="generateCaptcha();" />
+		</td>
+		<td>
+                <input type="text" id="txtInput"/>
+               </td>
+
+		</tr>
+		</table>
+		</div>
+		<br><br>
+		<div class="buttn">
+		<center>
+		<button class="button" type="reset"><span>Reset</span></button>
+		<button class="button button2" type="submit" name="submit" onclick="return dobValidate();"><span>Submit</span></button>
+		</center>
+		</div>
+		<br>
+	</div>
+	<br>
+
+</form>
+</div>
+<script type="text/javascript">
+		 function generateCaptcha()
+		 {
+				 var alpha = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+				 var i;
+				 for (i=0;i<4;i++){
+					 var a = alpha[Math.floor(Math.random() * alpha.length)];
+					 var b = alpha[Math.floor(Math.random() * alpha.length)];
+					 var c = alpha[Math.floor(Math.random() * alpha.length)];
+					 var d = alpha[Math.floor(Math.random() * alpha.length)];
+					}
+				var code = a + '' + b + '' + '' + c + '' + d;
+				document.getElementById("mainCaptcha").value = code
+			}
+			function CheckValidCaptcha(){
+					var string1 = removeSpaces(document.getElementById('mainCaptcha').value);
+					var string2 = removeSpaces(document.getElementById('txtInput').value);
+					if (string1 == string2){
+		 //document.getElementById('success').innerHTML = "Form is validated Successfully";
+		 //alert("Form is validated Successfully");
+						return true;
+					}
+					else{
+		 //document.getElementById('success').innerHTML = "Please enter a valid captcha.";
+		 alert("Please enter a valid captcha.");
+						return false;
+
+					}
+			}
+			function removeSpaces(string){
+				return string.split(' ').join('');
+			}
+	</script>
+
+<script>function enableDisable1(isEnabled,name,surname) {
+    document.getElementById(name).disabled = !isEnabled;
+    document.getElementById(surname).disabled = !isEnabled;
+}
+function enableDisable2(isEnabled,photo) {
+    document.getElementById(photo).disabled = !isEnabled;
+
+}
+function enableDisable3(isEnabled,houseno,area,city,pincode,addproof,typeaddproof) {
+    document.getElementById(houseno).disabled = !isEnabled;
+	document.getElementById(area).disabled = !isEnabled;
+	document.getElementById(city).disabled = !isEnabled;
+	document.getElementById(pincode).disabled = !isEnabled;
+	document.getElementById(addproof).disabled = !isEnabled;
+    document.getElementById(typeaddproof).disabled = !isEnabled;
+}
+function enableDisable4(isEnabled,dob) {
+    document.getElementById(dob).disabled = !isEnabled;
+
+}
+function enableDisable5(isEnabled,ageproof,typeageproof) {
+    document.getElementById(ageproof).disabled = !isEnabled;
+	document.getElementById(typeageproof).disabled = !isEnabled;
+
+}
+function enableDisable6(isEnabled,rel) {
+    document.getElementById(rel).disabled = !isEnabled;
+
+}
+function enableDisable7(isEnabled,rnm,rsurnm) {
+    document.getElementById(rnm).disabled = !isEnabled;
+	document.getElementById(rsurnm).disabled = !isEnabled;
+
+}
+
+function enableDisable8(isEnabled,gen) {
+    document.getElementById(gen).disabled = !isEnabled;
+
+}
+function enableDisable9(isEnabled,name,surname,photo,houseno,area,city,pincode,addproof,typeaddproof,dob,ageproof,typeageproof,rel,rnm,rsurnm,gen) {
+	document.getElementById(name).disabled = !isEnabled;
+	document.getElementById(surname).disabled = !isEnabled;
+document.getElementById(photo).disabled = !isEnabled;
+document.getElementById(dob).disabled = !isEnabled;
+document.getElementById(gen).disabled = !isEnabled;
+document.getElementById(ageproof).disabled = !isEnabled;
+document.getElementById(typeageproof).disabled = !isEnabled;
+document.getElementById(rnm).disabled = !isEnabled;
+document.getElementById(rsurnm).disabled = !isEnabled;
+
+document.getElementById(rel).disabled = !isEnabled;
+	  document.getElementById(houseno).disabled = !isEnabled;
+	document.getElementById(area).disabled = !isEnabled;
+	document.getElementById(city).disabled = !isEnabled;
+	document.getElementById(pincode).disabled = !isEnabled;
+	document.getElementById(addproof).disabled = !isEnabled;
+    document.getElementById(typeaddproof).disabled = !isEnabled;
+}
+</script>
+
+<script>
+
+
+function dobValidate() {
+
+
+var today = new Date();
+var nowyear = today.getFullYear();
+var nowmonth = today.getMonth();
+var nowday = today.getDate();
+var b = document.getElementById('dob').value;
+
+
+
+var birth = new Date(b);
+
+var birthyear = birth.getFullYear();
+var birthmonth = birth.getMonth();
+var birthday = birth.getDate();
+
+var age = nowyear - birthyear;
+var age_month = nowmonth - birthmonth;
+var age_day = nowday - birthday;
+
+
+if (age > 100) {
+alert("Age cannot be more than 100 Years.Please enter correct age")
+return false;
+}
+if (age_month < 0 || (age_month == 0 && age_day < 0)) {
+age = parseInt(age) - 1;
+return true
+
+
+}
+if ((age == 18 && age_month <= 0 && age_day <= 0) || age < 18) {
+alert("Age should be more than 18 years.Please enter a valid Date of Birth");
+return false;
+}
+}
+
+
+
+</script>
+<footer>
+	<div class="container">
+	<div class="first">
+        <div class="inner">
+			<p>Copyright © 2019 E-Voter's Service Portal.<br>Site is designed and maintained by Devendra, Milan and Krinish</p>
+			<nav>
+				<ul>
+					<li><a href="/evoterid/getuserinfo/" target="_blank">Home</a></li>
+					<li><a href="/evoterid/getuserinfo/about.html" target="_blank">About As</a></li>
+					<li><a href="/evoterid/getuserinfo/contact.html" target="_blank">Contact As</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div class="first">
+        <div class="inner">
+			<h1>Follow on</h1>
+			<a href="https://www.facebook.com/devendra.raiyani.7" target="_blank">
+				<img src="{% static 'evoterid/src/fb.png' %}">
+			</a>
+			<a href="http://www.instagram.com/incre_devendra/?hl=en" target="_blank">
+					<img src="{% static 'evoterid/src/ist.png' %}" style="margin-left:8px;">
+			</a>
+			<a href="https://www.youtube.com/channel/UC_LumxyJ8qANtNx_p79fFSQ?view_as=subscriber" target="_blank">
+				<img src="{% static 'evoterid/src/yt.png' %}" style="margin-left:8px;">
+			</a>
+		</div>
+    </div>
+	</div>
+	<div><br>
+	</div>
+</footer>
+<script>
+            var stateObject =
+            {
+                "Andaman Nicobar Islands":
+                {
+                    "Nicobar":["Car Nicobar","Nancowry","Great Nicobar"]
+                },
+                "Andra Pradesh":
+                {
+                     "Anantpur":["Agali","Amadagur","Anantpur"],
+                     "Chittor":["Nindra","Nagari","Pakala"],
+                     "Guntur":["Kolluru","Guntur","Nagaram"],
+                     "Kadapa":["Koduru","Kadapa","Khajipet"],
+                     "Krishna":["Movva","Pamarru","Pedana"]
+                },
+                "Arunachal Pradesh":
+                {
+                    "Lohit":["Sunpura Circle","Tezu Circle","Manchal Circle","Hawai Circle"],
+                    "West Siang":["Kamba Circle","Darak Circle","Along Circle"],
+                    "Tirap":["Namsang Circle","Khonsa Circle","Laju Circle"]
+                },
+                "Assam":
+                {
+                    "Barpeta":["Barnagar","Bajali","Jalah"],
+                    "Dhubri":["Chapar","Dhubri","Agamoni"],
+                    "Cachar":["Sonai","Lakhipur","Silchar"]
+                },
+                "Bihar":{
+                    "Araia":["Araia","Sikti","Palasi","Raniganj"],
+                    "Banka":["Banka","Chanan","Bausi","Belhar"],
+                    "Darbhanga":["Jale","Baheri","Biraul"],
+                    "Buxar":["Simri","Kesath","Rajpur","Buxar"]
+                },
+                "Chandigarh":{
+                    "Chandigarh":["Chandigarh"]
+                },
+                "Chhattisgarh":{
+                    "Balod":["Balod","Gurur","Dondi"],
+                    "Bastar":["Bastar","Keshkal","Narayanpur"],
+                    "Bijapur":["Bijapur"],
+                    "Raipur":["Simga","Palari","Tilda","Rajim"]
+                },
+                "Dadra Nagar Haveli":{
+                    "Dadra and Nagar Haveli":["Dadra & Nagar Haveli"]
+                },
+                "Daman And Diu":{
+                    "Daman":["Daman"],
+                    "Diu":["Diu"]
+                },
+                "Delhi":{
+                    "New Delhi":["Chanakya Puri","Connaught Place","Parliament Street"],
+                    "East Delhi":["Gandhi Nagar","Vivek Vihar","Preet Vihar"],
+                    "North Delhi":["Civil Lines","Kotwali","Sardar Bazar"],
+                    "South Delhi":["Defence Colony","Hauz Khas","Kalkaji"]
+                },
+                "Goa":{
+                    "North Goa":["Ponda","Satari","Bardez"],
+                    "South Goa":["Mormugao","Salcete","Sanguem"]
+                },
+                "Gujarat":{
+                    "Mehsana":["Visnagar","Unjha","Kheralu","Vadnagar","Satlasana","Others"],
+                    "Ahmedabad":["Balva","Sanand","Viramgam","Others"],
+                    "Anand":["Anand","Borsad","Petlad","Khambhat"],
+                    "Dahod":["Jhalod","Dahod","Fatepura","Others"],
+                    "Kheda":["Kathlal","Nadiad","Kheda","Kapadvanj"],
+                    "Vadodara":["Karjan","Padara","Vadodara","Vadhodiya"],
+                    "Panchmahal":["Godhra","Halol","Kalol"],
+                    "Aravalli":["Bayad","Bhiloda","Modasa"],
+                    "Banaskantha":["Danta","Palanpur","Vadgam","Deesa","Vav"],
+                    "Gandhinagar":["Gandhinagar","Kalol","Mansa"],
+                    "Patan":["Patan","Harij","Sami","Sidhpur"],
+                    "Amreli":["Amreli","Babra","Dhari"],
+                    "Bhavnagar":["Ghogha","Jesar","Palitana"],
+                    "Jamnagar":["Jamnagar","Dhrol","Others"],
+                    "Junagadh":["Junagadh","Keshod","Mangrol"],
+                    "Morbi":["Morbi","Maliya"],
+                    "Rajkot":["Rajkot","Dhoraji","Jetpur","Sangani"],
+                    "Sabarkantha":["Himatnagar","Idar","Talod","Vadali"],
+                    "Bharuch":["Bharuch","Valia","Ankleshwar"],
+                    "Dang":["Ahwa","Waghai"],
+                    "Narmada":["Nandod","Sagbara"],
+                    "Navsari":["Navsari","Vansda","Chikhli"],
+                    "Surat":["Surat","Bardoli","Kamrej"],
+                    "Valsad":["Valsad","Vapi","Dharampur"]
+                },
+                "Haryana":{
+                    "Ambala":["Ambala","Barara","Naraingarh"],
+                    "Bhiwani":["Bhiwani","Dadri","Tosham","Siwani"],
+                    "Faridabad":["Faridabad","Hodal","Hathin","Palwal"],
+                    "Gurgaon":["Gurgaon","Nuh","Sohna","Pataudi"],
+                    "Jind":["Jind","Jalana","Narwana"]
+                },
+                "Himachal Pradesh":{
+                    "Bilaspur":["Ghumarwin(T)","Jhanduta(T)","Bilaspur Sadar(T)"],
+                    "Kangra":["Nurpur","Indora","Jawali","Kangra"],
+                    "Shimla":["Shimla","Cheta","Tikar","Rohru"],
+                    "Una":["Una","Haroli","Amb","Bangana"],
+                    "Mandi":["Padhar","Aut","Nihri","Mandi"]
+                },
+                "Jammu Kashmir":{
+                    "Leh":["Leh"],
+                    "Reasi":["Reasi"],
+                    "Samba":["Samba"],
+                    "Jammu":["Jammu"],
+                    "Kargil":["Kargil"],
+                    "Srinagar":["Shinagar"]
+                },
+                "Jharkhand":{
+                    "Bokaro":["Bermo","Chas","Kasmar","Gumia"],
+                    "Dumka":["Jama","Dumka","Nala","Masalia","Ramgarh"],
+                    "Garhwa":["Kandi","Ranka","Meral","Chinia"],
+                    "Ranchi":["Kanke","Ratu","Bero","Topra","Rania"]
+                },
+                "Karnataka":{
+                    "Bidar":["Bidar","Aurad","Bhalki"],
+                    "Ballari":["Ballari","Sandur","Hospet"],
+                    "Dharwad":["Hubli","Dharwad","Navalgund"],
+                    "Gadag":["Ron","Gadag","Nargund"],
+                    "Kolar":["Kolar","Malur","Bangarpet"]
+                },
+                "Kerala":{
+                    "Kannur":["Kannur","Thalassery","Taliparamba"],
+                    "Kollam":["Kollam","Kunnathur","Pathanapuram"],
+                    "Wayanad":["Mananthavady","Sulthanbathery","Vythiri"]
+                },
+                "Lakshadweep":{
+                    "Lakshadweep":["Amini","Andrott","Minicoy"]
+                },
+                "MadhyaPradesh":{
+                    "Bhopal":["Huzur","Berasia"],
+                    "Gwalior":["Gird","Dabra","Chinore"],
+                    "Indore":["Indore","Sawer","Mhow"]
+                },
+                "Maharastra":{
+                    "Bhandara":["Sakoli","Pauni","Bhandara","Lakhani"],
+                    "Kolhapur":["Shirol","Ajra","Karvir","Bavda"],
+                    "Pune":["Junnar","Daund","Bhor","Baramati"],
+                    "Thane":["Vada","Thane","Murbad","Kalyan"]
+                },
+                "Manipur":{
+                    "Chandel":["Machi Sub-Division","Chandel Sub-Div.","Tengnoupal Sub-Division"],
+                    "Ukhrul":["Ukhrul North Sub-Division","Ukhrul Central Sub-Division","Kamjong Chassad Sub-Div."]
+                },
+                "Meghalaya":{
+                    "EastGaroHills":["Songsak","Samanda","Resubelpara"],
+                    "Ri Bhoi":["Umling","Umsning"]
+                },
+                "Mizoram":{
+                    "Saiha":["Sangau","Tuipang"],
+                    "Mamit":["Reiek","Zawlnuam","West Phaileng"]
+                },
+                "Nagaland":{
+                    "Mon":["Tobu","Chen","Mopong"],
+                    "Wokha":["Sanis","Ralan","Lotsu"],
+                    "Kohima":["Nsong","Sechu","Peren","Tening"]
+                },
+                "Orrisa":{
+                    "Puri":["Pipili","Delanga","Gop","Konark","Sadar"],
+                    "Jajpur":["Bari","Darpan","Jajpur"],
+                    "Ganjam":["Buguda","Asika","Kodala"]
+                },
+                "Pondicherry":{
+                    "Karaikal":["Nedungadu Commune Panchayat","Kottucherry Commune Panchayat"],
+                    "Pondicherry":["Mannadipet Commune Panchayat","Bahour Commune Panchayat","Villianur Commune Panchayat"]
+                },
+                "Punjab":{
+                    "Amritsar":["Ajnala","Amritsar","Patti"],
+                    "Gurdaspur":["Pathankot","Batala","Gurdaspur"],
+                    "Patiala":["Samana","Patiala","Rajpura"]
+                },
+                "Sikkim":{
+                    "East Sikkim":["Gangtok","Pakyong","Rongli"],
+                    "North Sikkim":["Chungthang","Mangan"]
+                },
+                "Rajasthan":{
+                    "Ajmer":["Ajmer","Sarwar","Kekri","Beawar"],
+                    "Bikaner":["Bikaner","Poogal","Nokha"],
+                    "Kota":["Sangod","Ladpura","Digod"],
+                    "Udaipur":["Sarada","Salumbar","Kherwara"]
+                },
+                "Tamilnadu":{
+                    "Chennai":["Chennai"],
+                    "Erode":["Bhavani","Erode","Dharapuram"],
+                    "Salem":["Salem","Attur","Sankari"]
+                },
+                "Tripura":{
+                    "Dhalai":["Ambassa","Manu","Salema"],
+                    "Unokoti":["Kumarghat"],
+                    "Khowai":["Ramchandra Ghat","Champahowar"]
+                },
+                "UttarPradesh":{
+                    "Agra":["Etmadpur"],
+                    "Lucknow":["Malihabad"],
+                    "Ghazibad":["Modinagar"],
+                    "Jhansi":["Moth"]
+                },
+                "Uttaranchal":{
+                    "Almora":["Dwarahat","Almora","Bhanoli"],
+                    "Haridwar":["Roorkee","Haridwar","Laksar"],
+                    "Dehradun":["Kalsi","Vikasnagar","Rishikesh"]
+                },
+                "West Bengal":{
+                    "Bankura":["Saltora"],
+                    "Howrah":["Udaynarayanpur"],
+                    "Kolkata":["Kolkata"]
+                }
+            }
+						window.onload = function () {
+                var state = document.getElementById("state"),
+                district = document.getElementById("district"),
+                assembly = document.getElementById("assembly");
+                for (var fstate in stateObject) {
+                    state.options[state.options.length] = new Option(fstate, fstate);
+                }
+                state.onchange = function () {
+                district.length = 1; // remove all options bar first
+                assembly.length = 1; // remove all options bar first
+                if (this.selectedIndex < 1) return; // done
+                for (var fdistrict in stateObject[this.value]) {
+                    district.options[district.options.length] = new Option(fdistrict, fdistrict);
+                }
+            }
+            state.onchange(); // reset in case page is reloaded
+            district.onchange = function () {
+                assembly.length = 1; // remove all options bar first
+                if (this.selectedIndex < 1) return; // done
+                var fassembly = stateObject[state.value][this.value];
+                for (var i = 0; i < fassembly.length; i++) {
+                    assembly.options[assembly.options.length] = new Option(fassembly[i], fassembly[i]);
+                }
+            }
+            }
+        </script>
+				<script>
+							function msg(){
+				                var today=new Date();
+				                var now_year=today.getFullYear();
+				                var now_month=today.getMonth();
+				                var now_day=today.getDate();
+
+				                var b = document.getElementById('birthdate').value;
+
+
+
+				                var bd = new Date(b);
+
+				                var birth_year = bd.getFullYear();
+				                var birth_month = bd.getMonth();
+				                var birth_day = bd.getDate();
+
+
+				                var age=now_year - birth_year;
+				                var age_month=now_month - birth_month;
+				                var age_day=now_day - birth_day;
+
+				                if (age_month < 0 || (age_month == 0 && age_day < 0))
+				                {
+				                    age = parseInt(age) - 1;
+				                }
+				                if (age_month <= 0 && age_day <= 0) || age < 18)
+				                {
+				                    alert("Age should be more than 18 years!");
+				                    return false;
+				                }
+				            }
+
+							function myFunction() {
+									var todaydate = new Date();
+							   var day = todaydate.getDate();
+							   var month = todaydate.getMonth() + 1;
+							   var year = todaydate.getFullYear();
+							   var datestring = day + "/" + month + "/" + year;
+							   document.getElementById("demo").value = datestring;
+							}
+				</script>
+
+</body>
+</html>

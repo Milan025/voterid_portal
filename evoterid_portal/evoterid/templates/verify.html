@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+	<link href="{% static 'evoterid/css/style.css' %}" rel="stylesheet">
+	<title>verification</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<img style="width:100%;height:100%" src="{% static 'evoterid/src/logo.png' %}">
+	<div class="paddlft">
+		<form action="/evoterid/auth/" method="post">{% csrf_token %}
+			<div class="rcorners1">
+				<p>Verification of Application<br>[For BLO and ERO only]</p>
+			</div>
+			<div class="form-box">
+				<div class="text">
+					<br><br>
+					<center>
+					<table border="0px">
+					<tr>
+					<td><br>
+					Username:
+					</td>
+					<td><br>
+					<input type="text" name="username" required/>
+					</td>
+					</tr>
+					<tr>
+					<td><br>
+					Password:
+					</td>
+					<td><br>
+					<input type="password" name="password" required/>
+					</td>
+					</tr>
+					</td>
+					</tr>
+					</table>
+					<br><br>
+					<center>
+					<input type="radio" name="blo" value="verification"/>verification
+					<input type="radio" name="blo" value="update"/>update
+					<input type="radio" name="blo" value="delete"/>delete
+					</center>
+					<button class="button button2" type="submit"><span>Login</span></button>
+					</center>
+					<br><br>
+					<br><br>
+				</div>
+			</div>
+				<br><br>
+				<br><br>
+				<br><br>
+				<br><br>
+
+	</form>
+	</div>
+	<footer>
+		<div class="container">
+		<div class="first">
+			<div class="inner">
+				<p>Copyright © 2019 E-Voter's Service Portal.<br>Site is designed and maintained by Devendra, Milan and Krinish</p>
+				<nav>
+					<ul>
+						<li><a href="/evoterid/getuserinfo/" target="_blank">Home</a></li>
+						<li><a href="/evoterid/getuserinfo/about.html" target="_blank">About As</a></li>
+						<li><a href="/evoterid/getuserinfo/contact.html" target="_blank">Contact As</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="first">
+			<div class="inner">
+				<h1>Follow on</h1>
+				<a href="https://www.facebook.com/devendra.raiyani.7" target="_blank">
+					<img src="{% static 'evoterid/src/fb.png' %}">
+				</a>
+				<a href="http://www.instagram.com/incre_devendra/?hl=en" target="_blank">
+					<img src="{% static 'evoterid/src/ist.png' %}" style="margin-left:8px;">
+				</a>
+				<a href="https://www.youtube.com/channel/UC_LumxyJ8qANtNx_p79fFSQ?view_as=subscriber" target="_blank">
+					<img src="{% static 'evoterid/src/yt.png' %}" style="margin-left:8px;">
+				</a>
+			</div>
+		</div>
+		</div>
+		<div><br>
+		</div>
+	</footer>
+</body>
+</html>

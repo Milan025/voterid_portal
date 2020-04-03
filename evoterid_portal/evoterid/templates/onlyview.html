@@ -1,0 +1,153 @@
+<html>
+<head>
+	{% load staticfiles %}
+	<link href="{% static 'evoterid/css/style.css' %}" rel="stylesheet">
+	<meta charset="UTF-8">
+	<title>Search in ER</title>
+</head>
+<body>
+
+
+
+	<header>
+		<div class="container">
+			<div id="branding">
+				<img align="left" src="{% static 'evoterid/src/sb.png' %}">
+				<img src="{% static 'evoterid/src/logonew1.png' %}">
+				<img align="right" src="{% static 'evoterid/src/di.png' %}">
+			</div>
+		</div>
+	</header>
+	<div class="paddlft">
+	<form action="/evoterid/allview/">
+		<div class="rcorners1">
+				<p>Voter Information</p>
+		</div>
+		{% if u in users is None %}
+		no Results
+		{% endif %}
+		{% for u in users %}
+		<div class="form-box">
+				<div class="text"><center>
+						<table id="customers">
+				<br>
+		 		<tr><td>Photo:</td><td>	<img style="width:100px;height:100px" src="{{ u.photo.url }}"/></td></tr>
+				<tr><td>Age Proof:</td><td>	<img style="width:100px;height:100px" src="{{ u.age_p.url }}"/></td></tr>
+				<tr><td>Address Proof:</td><td> <img style="width:100px;height:100px" src="{{ u.add_p.url }}"/></td></tr>
+
+					<tr>
+						<td><br>
+						Voter ID no.:
+						</td>
+						<td><br>
+						{{ u.id }}
+						</td>
+					</tr>
+					<tr>
+						<td><br>
+						Name:
+						</td>
+						<td><br>
+						{{ u.name }}&nbsp;&nbsp;{{ u.srname }}
+						</td>
+					</tr>
+					<tr>
+						<td><br>
+						Name of Relative:
+						</td>
+						<td><br>
+						{{u.r_name}}&nbsp;&nbsp;{{ u.r_srname}}
+						</td>
+					</tr>
+					<tr>
+						<td><br>
+						Date of Birth:
+						</td>
+						<td><br>
+						{{u.birthday}}
+						</td>
+					</tr>
+
+          <tr>
+						<td><br>
+						Address:
+						</td>
+						<td><br>
+						{{ u.address }}
+						</td>
+					</tr>
+
+					<tr>
+						<td><br>
+						District:
+						</td>
+						<td><br>
+						{{ u.district }}
+						</td>
+					</tr>
+					<tr>
+						<td><br>
+						Assembly:
+						</td>
+						<td><br>
+						{{ u.assembly }}
+						</td>
+					</tr>
+					<tr>
+						<td><br>
+						State:
+						</td>
+						<td><br>
+						{{ u.state }}
+						</td>
+					</tr>
+
+				</table>
+      </center>
+					<br> <center>
+					<button class="button button2" type="submit"><span>Back</span></button>
+					</form>
+
+
+				</div>
+		</div>
+
+	</div>
+
+
+	<footer>
+	<div class="container">
+	<div class="first">
+        <div class="inner">
+			<p>Copyright © 2019 E-Voter's Service Portal.<br>Site is designed and maintained by Devendra, Milan and Krinish</p>
+			<nav>
+				<ul>
+					<li><a href="/evoterid/getuserinfo/" target="_blank">Home</a></li>
+					<li><a href="/evoterid/getuserinfo/about.html" target="_blank">About As</a></li>
+					<li><a href="/evoterid/getuserinfo/contact.html" target="_blank">Contact As</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div class="first">
+				<div class="inner">
+			<h1>Follow on</h1>
+			<a href="https://www.facebook.com/devendra.raiyani.7" target="_blank">
+				<img src="{% static 'evoterid/src/fb.png' %}">
+			</a>
+			<a href="http://www.instagram.com/incre_devendra/?hl=en" target="_blank">
+				<img src="{% static 'evoterid/src/ist.png' %}" style="margin-left:8px;">
+			</a>
+			<a href="https://www.youtube.com/channel/UC_LumxyJ8qANtNx_p79fFSQ?view_as=subscriber" target="_blank">
+				<img src="{% static 'evoterid/src/yt.png' %}" style="margin-left:8px;">
+			</a>
+		</div>
+		</div>
+	</div>
+	<div><br>
+	</div>
+</footer>
+{% endfor %}
+
+</body>
+</html>
